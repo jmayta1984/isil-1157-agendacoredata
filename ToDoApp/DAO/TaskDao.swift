@@ -30,6 +30,27 @@ class TaskDao: TaskDaoProtocol {
     }
     
     func delete(name: String) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        let request: NSFetchRequest<Task>
+        
+        request = Task.fetchRequest()
+
+        request.predicate = NSPredicate(format: "name = %@", name)
+        
+        var tasks = [Task]()
+        do {
+            tasks = try context.fetch(request)
+            for task in tasks {
+                context.delete(task)
+            }
+            try context.save()
+        } catch (let error) {
+            print("Error: \(error)")
+
+        }
+        
+        
         
     }
     
