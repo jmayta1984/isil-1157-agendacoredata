@@ -11,7 +11,9 @@ import UIKit
 
 protocol TaskDaoProtocol {
     func add(name: String, detail: String)
-    func delete(name: String)
+    //func delete(name: String)
+    func delete(task: Task)
+    func update(task: Task)
     func getAll() -> [Task]
 }
 
@@ -30,6 +32,17 @@ class TaskDao: TaskDaoProtocol {
         }
     }
     
+    func delete(task: Task) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        context.delete(task)
+        do {
+            try context.save()
+        } catch (let error){
+            print("Error: \(error)")
+        }
+
+    }
+    /*
     func delete(name: String) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
@@ -51,6 +64,7 @@ class TaskDao: TaskDaoProtocol {
 
         }
     }
+    */
     
     func update(task: Task){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

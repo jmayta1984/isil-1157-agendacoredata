@@ -83,12 +83,14 @@ class TaskListViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let name = self.tasks[indexPath.row].name else {
-                return
-            }
-            TaskDao().delete(name: name)
+      
+            TaskDao().delete(task: tasks[indexPath.row])
+            tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            /*
             self.tasks = TaskDao().getAll()
             self.tableView.reloadData()
+            */
         }
     }
     
@@ -107,14 +109,10 @@ class TaskListViewController: UITableViewController {
             self.tasks[indexPath.row].name = taskName
             self.tasks[indexPath.row].detail = taskDetail
             TaskDao().update(task: self.tasks[indexPath.row])
-            self.tasks = TaskDao().getAll()
-            
             self.tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        
         
         alert.addTextField { textField in
             textField.text = self.tasks[indexPath.row].name
@@ -130,29 +128,5 @@ class TaskListViewController: UITableViewController {
         present(alert, animated: true)
     }
     
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
