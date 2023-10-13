@@ -10,17 +10,18 @@ import CoreData
 import UIKit
 
 protocol TaskDaoProtocol {
-    func add(name: String)
+    func add(name: String, detail: String)
     func delete(name: String)
     func getAll() -> [Task]
 }
 
 class TaskDao: TaskDaoProtocol {
-    func add(name: String) {
+    func add(name: String, detail: String) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         let task = Task(context: context)
         task.name = name
+        task.detail = detail
         
         do {
             try context.save()
@@ -49,10 +50,18 @@ class TaskDao: TaskDaoProtocol {
             print("Error: \(error)")
 
         }
-        
-        
-        
     }
+    
+    func update(task: Task){
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        do {
+          try context.save()
+        } catch (let error) {
+            print("Error: \(error)")
+
+        }
+    }
+    
     
     func getAll() -> [Task] {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

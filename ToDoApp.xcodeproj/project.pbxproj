@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D0F39492AD8D4FE00A5E7BC /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0F39482AD8D4FE00A5E7BC /* TaskViewCell.swift */; };
 		DEC3F5122ACF9F7900637ED7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC3F5112ACF9F7900637ED7 /* AppDelegate.swift */; };
 		DEC3F5142ACF9F7900637ED7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC3F5132ACF9F7900637ED7 /* SceneDelegate.swift */; };
 		DEC3F5162ACF9F7900637ED7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC3F5152ACF9F7900637ED7 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D0F39482AD8D4FE00A5E7BC /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
 		DEC3F50E2ACF9F7900637ED7 /* ToDoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC3F5112ACF9F7900637ED7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEC3F5132ACF9F7900637ED7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				DEC3F5282ACFA1FA00637ED7 /* TaskListViewController.swift */,
+				8D0F39482AD8D4FE00A5E7BC /* TaskViewCell.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC3F5162ACF9F7900637ED7 /* ViewController.swift in Sources */,
+				8D0F39492AD8D4FE00A5E7BC /* TaskViewCell.swift in Sources */,
 				DEC3F5122ACF9F7900637ED7 /* AppDelegate.swift in Sources */,
 				DEC3F5142ACF9F7900637ED7 /* SceneDelegate.swift in Sources */,
 				DEC3F51C2ACF9F7900637ED7 /* ToDoApp.xcdatamodeld in Sources */,

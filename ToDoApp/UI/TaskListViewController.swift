@@ -23,11 +23,14 @@ class TaskListViewController: UITableViewController {
         let alert = UIAlertController(title: "New task", message: "Add a new task", preferredStyle: .alert)
         
         let saveAction = UIAlertAction(title: "Save", style: .default ){ action in
-            guard let textField = alert.textFields?.first, let taskName = textField.text else {
+            guard let textField = alert.textFields?[0], let taskName = textField.text else {
+                return
+            }
+            guard let textField = alert.textFields?[1], let taskDetail = textField.text else {
                 return
             }
             
-            TaskDao().add(name: taskName)
+            TaskDao().add(name: taskName, detail: taskDetail)
             self.tasks = TaskDao().getAll()
             
             self.tableView.reloadData()
@@ -35,6 +38,7 @@ class TaskListViewController: UITableViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
+        alert.addTextField()
         alert.addTextField()
         
         alert.addAction(saveAction)
@@ -58,9 +62,11 @@ class TaskListViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TaskViewCell
+        
+        cell.nameLabel.text = tasks[indexPath.row].name
+        cell.detailLabel.text = tasks[indexPath.row].detail
 
-        cell.textLabel?.text = tasks[indexPath.row].name
         return cell
     }
     
@@ -87,6 +93,43 @@ class TaskListViewController: UITableViewController {
     }
     
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Update task", message: "Modify task", preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default ){ action in
+            guard let textField = alert.textFields?[0], let taskName = textField.text else {
+                return
+            }
+            guard let textField = alert.textFields?[1], let taskDetail = textField.text else {
+                return
+            }
+            
+            self.tasks[indexPath.row].name = taskName
+            self.tasks[indexPath.row].detail = taskDetail
+            TaskDao().update(task: self.tasks[indexPath.row])
+            self.tasks = TaskDao().getAll()
+            
+            self.tableView.reloadData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        
+        
+        alert.addTextField { textField in
+            textField.text = self.tasks[indexPath.row].name
+        }
+        alert.addTextField { textField in
+            textField.text = self.tasks[indexPath.row].detail
+        }
+        
+        alert.addAction(saveAction)
+        
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
+    }
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
